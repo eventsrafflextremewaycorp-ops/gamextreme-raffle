@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\CompanyReceipt;
 use App\Models\Registration;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -16,22 +17,24 @@ class RoleAccessTest extends TestCase
     {
         $staff = User::factory()->staffRole()->create();
         $reg = Registration::factory()->create(['validated_at' => now()]);
+        $receipt = CompanyReceipt::create(['receipt_number' => 'OR-EXISTING']);   // must exist: a missing id would 404 before the permission check
 
         // view level + draw
         foreach (['/api/registered-customers', "/api/registered-customers/{$reg->id}/proof", '/api/company-receipts', '/api/draw', '/api/draw/tickets', '/api/draw/winners'] as $url) {
             $this->assertNotSame(403, $this->actingAs($staff)->getJson($url)->getStatusCode(), "staff should be allowed to GET $url");
         }
         $this->actingAs($staff)->postJson('/api/draw/spin')->assertCreated();
+        $winnerId = \App\Models\Winner::value('id');
         $this->actingAs($staff)->getJson('/api/registered-customers/export')->assertOk();   // staff may download the CSV
 
         // changing records is refused
         $this->actingAs($staff)->patchJson("/api/registered-customers/{$reg->id}/validation", ['validated' => false])->assertForbidden();
         $this->actingAs($staff)->postJson('/api/company-receipts', ['receipt_number' => 'OR-1'])->assertForbidden();
         $this->actingAs($staff)->postJson('/api/company-receipts/import')->assertForbidden();
-        $this->actingAs($staff)->deleteJson('/api/company-receipts/1')->assertForbidden();
+        $this->actingAs($staff)->deleteJson("/api/company-receipts/{$receipt->id}")->assertForbidden();
         $this->actingAs($staff)->deleteJson('/api/draw/winners/latest')->assertForbidden();
         $this->actingAs($staff)->postJson('/api/draw/winners/publish', ['published' => true])->assertForbidden();
-        $this->actingAs($staff)->patchJson('/api/draw/winners/1/prize', ['prize_id' => null])->assertForbidden();
+        $this->actingAs($staff)->patchJson("/api/draw/winners/{$winnerId}/prize", ['prize_id' => null])->assertForbidden();
         $this->assertNotNull($reg->fresh()->validated_at);
     }
 
