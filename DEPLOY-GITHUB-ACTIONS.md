@@ -34,6 +34,9 @@ Create the empty private repository on github.com first.
 
 ### 2. Make a deploy key (only for deploying)
 
+Already have one working for another site (for example the Vismay website)? Skip steps 2 to 4 and reuse it: put the same `SSH_PRIVATE_KEY`, `SSH_KNOWN_HOSTS`, `SSH_HOST`, `SSH_USERNAME` and `SSH_PORT` values in this repository's secrets. Secrets belong to one repository, so each repository needs its own copy.
+
+
 ```
 ssh-keygen -t ed25519 -C "gx-deploy" -f $HOME\.ssh\gx_deploy
 ```
@@ -67,7 +70,7 @@ Repository, then **Settings → Secrets and variables → Actions**.
 | Name | Value |
 |---|---|
 | `SSH_HOST` | the host you SSH to (domain or server IP) |
-| `SSH_USER` | your cPanel username, e.g. `platioy0` |
+| `SSH_USERNAME` | your cPanel username, e.g. `platioy0` (the name `SSH_USER` also works) |
 | `SSH_PRIVATE_KEY` | the whole content of the private file `gx_deploy`, including the BEGIN and END lines |
 | `SSH_KNOWN_HOSTS` | the lines from step 4 |
 
@@ -77,7 +80,7 @@ Repository, then **Settings → Secrets and variables → Actions**.
 |---|---|
 | `DEPLOY_PATH` | `/home3/platioy0/gamextreme/backend` (the folder that contains `artisan`) |
 | `SITE_URL` | `https://gamextreme.xtremewaycorp.com` |
-| `SSH_PORT` | `22` (only if different) |
+| `SSH_PORT` | `22` (only if different; it may also be a secret, as in the Vismay workflow) |
 | `PHP_BIN` | only if the default `php` on the server is older than 8.2, e.g. `/opt/cpanel/ea-php82/root/usr/bin/php` (check with `ls /opt/cpanel | grep php`) |
 
 ### 6. First run
