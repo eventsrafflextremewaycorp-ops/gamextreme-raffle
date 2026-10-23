@@ -177,6 +177,7 @@ class StaffManagementTest extends TestCase
     public function test_deactivating_ends_that_persons_database_sessions(): void
     {
         config(['session.driver' => 'database']);
+        $this->flushHeaders();   // not a stateful request: no session row of its own
         $admin = $this->admin();
         $other = $this->staff();
 

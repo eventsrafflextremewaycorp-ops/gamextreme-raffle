@@ -44,7 +44,7 @@ class PublicApiTest extends TestCase
             ->assertOk()
             ->assertJsonCount(5, 'data')
             ->assertJsonPath('data.0.name', 'MSI 274QF Monitor')
-            ->assertJsonPath('data.0.value', 14995.0)
+            ->assertJsonPath('data.0.value', 14995)
             ->assertJsonPath('data.2.quantity', 2)
             ->assertJsonPath('data.4.quantity', 6);
 
