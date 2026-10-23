@@ -1,1 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#d9192b"/><text x="32" y="43" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" fill="#fff" text-anchor="middle">GX</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="512" height="512">
+  <title>GX</title>
+  <!-- dark tile so the white G stays visible on light browser tabs -->
+  <rect width="1080" height="1080" rx="180" fill="#000"/>
+
+  <g transform="translate(0,20)">
+    <!-- G -->
+    <path fill="#fff" d="M455,425 L455,395 Q455,282 340,282 L145,282 Q28,282 28,400 L28,665 Q28,785 145,785 L345,785 Q460,785 460,665 L460,525 L245,525 L245,582 L372,582 L372,670 Q372,715 330,715 L160,715 Q118,715 118,670 L118,397 Q118,352 160,352 L330,352 Q372,352 372,397 L372,425 Z"/>
+
+    <!-- X: white outline under red fill -->
+    <path fill="#af1f27" stroke="#fff" stroke-width="22" stroke-linejoin="round" paint-order="stroke"
+          d="M415,178 L565,178 L722,405 L880,178 L1035,178 L800,510 L1045,862 L895,862 L722,615 L548,862 L390,862 L650,510 Z"/>
+  </g>
+</svg>

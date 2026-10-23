@@ -20,16 +20,16 @@ class BranchSeeder extends Seeder
             'SM City Southmall', 'SM City Sucat', 'SM City BF Parañaque', 'Vistamall Taguig',
             'Venice Grand Canal', 'SM Mall of Asia', 'Ayala Malls Feliz', 'Sta. Lucia Grandmall',
             'SM City East Ortigas', 'SM City San Mateo', 'SM City Masinag', 'VMall',
-            'Bridgeway 1', 'Ayala Fairview Terraces', 'Ayala Trinoma',
+            'Bridgeway 1',
         ],
         'North Luzon' => [
             'Ayala Marquee Mall', 'SM City Clark', 'Ayala Malls Harbor Point', 'SM City Telebastagan',
             'SM City Urdaneta', 'Robinsons Place La Union', 'SM City Baliwag', 'SM City Cabanatuan',
-            'Robinsons Ilocos', 'Robinsons Santiago',
+            'Robinsons Santiago',
         ],
         'South Luzon' => [
             'SM City Bacoor', 'SM City Dasmarinas', 'SM City Tanza', 'SM City Sto. Tomas',
-            'Ayala Malls Vermosa', 'Robinsons Place Lipa', 'Ayala Evo City', 'Ayala Nuvali City',
+            'Ayala Malls Vermosa', 'Robinsons Place Lipa',
         ],
         'Visayas & Mindanao' => [
             'Gaisano Mall Davao',
