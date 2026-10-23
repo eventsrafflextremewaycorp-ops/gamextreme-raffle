@@ -23,5 +23,3 @@ dist/
 /backend/public/uploads/*
 !/backend/public/uploads/.htaccess
 !/backend/public/uploads/.gitkeep
-
-.qodo/

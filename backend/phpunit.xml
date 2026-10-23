@@ -24,5 +24,6 @@
         <env name="QUEUE_CONNECTION" value="sync"/>
         <env name="MAIL_MAILER" value="array"/>
         <env name="PROMO_REGISTRATION_OPEN" value="true"/>
+        <env name="SANCTUM_STATEFUL_DOMAINS" value="localhost,localhost:3000"/>
     </php>
 </phpunit>

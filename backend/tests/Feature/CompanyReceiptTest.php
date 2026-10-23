@@ -56,7 +56,7 @@ class CompanyReceiptTest extends TestCase
             ->assertOk()
             ->assertJsonPath('data.added', 2)
             ->assertJsonPath('data.duplicates', 2)
-            ->assertJsonPath('data.invalid', 0)
+            ->assertJsonPath('data.invalid', 1) // the empty "," row
             ->assertJsonPath('data.matched', 1);
 
         $this->assertNotNull($match->fresh()->validated_at);
@@ -67,14 +67,14 @@ class CompanyReceiptTest extends TestCase
     public function test_new_registration_is_validated_if_its_receipt_is_already_listed(): void
     {
         CompanyReceipt::create(['receipt_number' => 'GX-000777', 'status' => 'active']);
-        $this->travelTo(now()->setDate(2026, 10, 18)->setTime(12, 0));
+        $this->travelTo(now()->setDate(2026, 10, 25)->setTime(12, 0));
         \Illuminate\Support\Facades\Storage::fake('local');
         \Illuminate\Support\Facades\Mail::fake();
 
         $this->post('/api/registrations', [
             'full_name' => 'Ana Reyes', 'email' => 'ana@example.com', 'contact_number' => '09171234567',
             'address' => 'Quezon City', 'unit' => 'iPhone 18 Pro',
-            'branch_id' => \App\Models\Branch::value('id'), 'purchase_date' => '2026-10-17',
+            'branch_id' => \App\Models\Branch::value('id'), 'purchase_date' => '2026-10-24',
             'reference_number' => 'gx-000777',
             'proof_of_purchase' => UploadedFile::fake()->image('r.jpg')->size(100),
             'privacy_consent' => '1', 'terms' => '1',

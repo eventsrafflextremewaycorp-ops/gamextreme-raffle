@@ -29,7 +29,9 @@ class SpaFallbackTest extends TestCase
         File::put($this->index, '<!doctype html><div id="root"></div>');
 
         foreach (['/', '/register', '/draw/tickets', '/registered-customers/receipts'] as $url) {
-            $this->get($url)->assertOk()->assertSee('<div id="root">', false);
+            $response = $this->get($url)->assertOk();
+            // index.html is sent as a file download-style response, so read the file itself.
+            $this->assertStringContainsString('<div id="root">', file_get_contents($response->baseResponse->getFile()->getPathname()));
         }
     }
 

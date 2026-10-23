@@ -30,12 +30,15 @@ class DrawTest extends TestCase
 
     public function test_every_draw_endpoint_requires_login_and_admin(): void
     {
+        // Guests first: once actingAs() has been used, that user stays signed in for the rest of the test.
         foreach (['/api/draw', '/api/draw/tickets', '/api/draw/winners'] as $url) {
             $this->getJson($url)->assertUnauthorized();
+        }
+        $this->postJson('/api/draw/spin')->assertUnauthorized();
+
+        foreach (['/api/draw', '/api/draw/tickets', '/api/draw/winners'] as $url) {
             $this->actingAs(User::factory()->create())->getJson($url)->assertForbidden();
         }
-
-        $this->postJson('/api/draw/spin')->assertUnauthorized();
         $this->actingAs(User::factory()->create())->postJson('/api/draw/spin')->assertForbidden();
         $this->assertDatabaseCount('winners', 0);
     }
