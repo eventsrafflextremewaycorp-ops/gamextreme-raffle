@@ -77,8 +77,9 @@ class StaffManagementTest extends TestCase
         $this->actingAs($admin)->postJson('/api/staff', self::NEW + ['role' => 'superadmin'])->assertForbidden();
         $this->assertDatabaseMissing('users', ['email' => 'new@example.com']);
 
-        $this->actingAs($this->superAdmin())->postJson('/api/staff', self::NEW + ['role' => 'admin'])->assertCreated()->assertJsonPath('data.role', 'admin');
-        $this->actingAs($this->superAdmin())->postJson('/api/staff', ['email' => 'sa@example.com'] + self::NEW + ['role' => 'superadmin'])->assertCreated();
+        $super = $this->superAdmin();
+        $this->actingAs($super)->postJson('/api/staff', self::NEW + ['role' => 'admin'])->assertCreated()->assertJsonPath('data.role', 'admin');
+        $this->actingAs($super)->postJson('/api/staff', ['email' => 'sa@example.com'] + self::NEW + ['role' => 'superadmin'])->assertCreated();
     }
 
     public function test_adding_staff_validates_input(): void
